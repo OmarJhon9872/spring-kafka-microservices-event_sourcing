@@ -1,0 +1,65 @@
+version: '3.4'
+
+services:
+    mysql:
+        container_name: "vd-mysql"
+        image: mysql:latest
+        restart: always
+        environment:
+            - MYSQL_DATABASE=db
+            - MYSQL_USER=jon
+            - MYSQL_PASSWORD=1234
+            - MYSQL_ROOT_PASSWORD=1234567890
+        ports:
+            - "3306:3306"
+        expose:
+            - "3306"
+        volumes:
+            - "./volumes/mysql_data:/var/lib/mysql"
+        networks:
+            - bankingNetwork
+    mongodb:
+        container_name: "vd-mongo"
+        image: mongo:latest
+        restart: always
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=jon
+            - MONGO_INITDB_ROOT_PASSWORD=1234567890
+        ports:
+            - "27017:27017"
+        volumes:
+            - "./volumes/mongodb_data:/data/db"
+        networks:
+            - bankingNetwork
+    zookeeper:
+        image: bitnami/zookeeper
+        container_name: vd-zookeeper
+        restart: always
+        ports:
+            - "2181:2181"
+        volumes:
+            - "./volumes/zookeeper_data:/bitnami"
+        environment:
+            - ALLOW_ANONYMOUS_LOGIN=yes
+        networks:
+            - bankingNetwork
+    kafka:
+        image: bitnami/kafka
+        container_name: vd-kafka
+        ports: 
+            - "9092:9092"
+        restart: always
+        volumes:
+            - "./volumes/kafka_data:/bitnami"
+        environment:
+            - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+            - ALLOW_PLAINTEXT_LISTENER=yes
+            - KAFKA_LISTENERS=PLAINTEXT://:9092
+            - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
+        depends_on:
+            - zookeeper
+        networks:
+            - bankingNetwork
+    
+networks:
+    bankingNetwork: 

@@ -1,0 +1,5 @@
+Crear una red virtual en Docker
+* docker network create --attachable -d bridge bankingNetwork
+* Como los modulos adicionales no son proyectos de tipo aplicacion por eso se borran
+los main de cqrs.core y account.common, de igual forma la seccion <build> de los
+archivos pom.xml
