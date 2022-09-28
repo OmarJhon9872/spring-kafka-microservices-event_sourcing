@@ -17,6 +17,20 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+		<!--DEPENDENCIA DE CARPETA ANTERIOR cqrs/cqrs.core-->
+		<dependency>
+			<groupId>com.banking</groupId>
+			<artifactId>cqrs.core</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<!--DEPENDENCIA DE CARPETA account.common-->
+		<dependency>
+			<groupId>com.banking</groupId>
+			<artifactId>account.common</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>

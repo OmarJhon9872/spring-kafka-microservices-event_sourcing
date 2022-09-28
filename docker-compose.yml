@@ -1,9 +1,9 @@
 version: '3.4'
 
 services:
-    mysql:
+    mysqlds:
         container_name: "vd-mysql"
-        image: mysql:latest
+        image: mysql:8.0-debian
         restart: always
         environment:
             - MYSQL_DATABASE=db
@@ -16,8 +16,8 @@ services:
             - "3306"
         volumes:
             - "./volumes/mysql_data:/var/lib/mysql"
-        networks:
-            - bankingNetwork
+        #networks:
+        #    - bankingNetwork
     mongodb:
         container_name: "vd-mongo"
         image: mongo:latest
@@ -29,8 +29,8 @@ services:
             - "27017:27017"
         volumes:
             - "./volumes/mongodb_data:/data/db"
-        networks:
-            - bankingNetwork
+        #networks:
+        #    - bankingNetwork
     zookeeper:
         image: bitnami/zookeeper
         container_name: vd-zookeeper
@@ -41,8 +41,8 @@ services:
             - "./volumes/zookeeper_data:/bitnami"
         environment:
             - ALLOW_ANONYMOUS_LOGIN=yes
-        networks:
-            - bankingNetwork
+        #networks:
+        #    - bankingNetwork
     kafka:
         image: bitnami/kafka
         container_name: vd-kafka
@@ -58,8 +58,8 @@ services:
             - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
         depends_on:
             - zookeeper
-        networks:
-            - bankingNetwork
+        #networks:
+        #    - bankingNetwork
     
-networks:
-    bankingNetwork: 
+#networks:
+    #bankingNetwork: 
